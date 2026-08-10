@@ -320,6 +320,15 @@ becomes a second open position.
   value to this list — it was deliberately scoped as a Notes-only flag for
   exactly this reason, to avoid compounding an already-unresolved schema
   question with a new status value that would need its own reconciliation.
+- **Triggered vs. Active status convention:** the `/pairs` (now `/live-trades`)
+  page's 7-value status field includes both "Triggered" and "Active" with no
+  documented distinction between them. First real-world resolution: Week 32's
+  NZD/USD Long was set to "Active" rather than "Triggered" on the reasoning
+  that "Triggered" implies a just-fired entry, while "Active" better describes
+  a position confirmed live and currently tracking toward a target days later.
+  This was a judgment call, not a ratified convention — logged here so future
+  cases don't re-litigate it from scratch, but not yet formally adopted as
+  the rule.
 - **Correlation check's database home** is still undecided (`research_cycles`
   vs. `trade_ideas`) — Rule 5 above describes the check itself, not where
   its result is persisted.
@@ -394,6 +403,14 @@ Ledger-phase rule in substance, it's appended after Rule 21 rather than
 inserted into the original Position Ledger block (Rules 17–19) — inserting
 it there would force renumbering Rules 20 and 21 and every citation of
 them across the protocol, templates, and generation prompts. As with Rule
-21 at v3→v4, appending preserves every existing citation's validity at the
-cost of perfect phase-grouping — the same deliberate, repeated tradeoff
+21 at v3→v4, appending preserves every existing citation's validity at
+the cost of perfect phase-grouping — the same deliberate, repeated tradeoff
 this document has now made three times.
+
+**Post-v5 (Known Open Items log entry, no rule change):** added a Known
+Open Item documenting the first real-world Triggered-vs-Active status
+decision (Week 32, NZD/USD Long → "Active"). This is a log entry, not a
+rule — it records that a judgment call was made and the reasoning behind
+it, so the next case has precedent to reference or dispute, but it does
+not formally adopt a Triggered/Active convention. No rule numbering is
+affected.
