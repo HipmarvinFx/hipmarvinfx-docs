@@ -1,4 +1,38 @@
-# HipMarvinFX — Publishing Pipeline v1.8
+# HipMarvinFX — Publishing Pipeline v1.9
+
+> **v1.9 — v6 Liquidity/Flow publication alignment.** For v6 research files, `WEBSITE_PARSER_CONTRACT_v6.md`, `WEBSITE_PAGE_SCHEMA_v6.md`, and `V6_WEBSITE_INTEGRATION.md` govern parser normalization and website presentation. This v6 contract supersedes the older Rule 21 zone-direction interpretation **for v6 inputs only**. Historical v5 research remains governed by the v5 rules and must not be retroactively reclassified.
+
+## v6 publication authority
+
+For v6 research files, the publication chain is:
+
+`Research File → v6 Parser Contract → Validation → Publication Derivation → Website Pages`
+
+The 20-day range is **structural location**, not directional instruction. Website derivation combines:
+
+- `daily_zone` — location
+- `liquidity_flow_regime` — `RANGE` / `TRANSITION` / `DIRECTIONAL`
+- `liquidity_state` — sweep/acceptance state
+- `zone_flow_relationship` — relationship between location and flow
+
+The website/parser must never reject a Premium Buy or Discount Sell solely because of location. It must surface the location/flow relationship and preserve the research conclusion.
+
+### v6 website derivation examples
+
+| Location | Flow | Liquidity state | Public interpretation |
+|---|---|---|---|
+| Deep Premium | DIRECTIONAL | Swept + accepted | Premium / Bullish Continuation when direction is bullish |
+| Deep Premium | RANGE | Swept + rejected | Premium / Reversal Watch |
+| Mild Premium | TRANSITION | Confirmation pending | Transition / Wait for Confirmation |
+| Deep Discount | DIRECTIONAL | Swept + accepted | Discount / Bearish Continuation when direction is bearish |
+
+These are presentation mappings, not new trading rules. The research file remains the source of analytical conclusions.
+
+## Historical compatibility
+
+v5 files remain parseable. Missing v6 fields must be represented as `NOT_RECORDED` rather than inferred. Historical Premium/Discount flags must not be silently converted into v6 flow conclusions.
+
+---
 
 Updates v1.8: resolves two genuine specification gaps surfaced while
 translating the Setup Quality Derivation Rule (Layer 1, v1.5) into code,
