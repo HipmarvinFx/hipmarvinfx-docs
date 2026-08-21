@@ -1,16 +1,16 @@
-# HipMarvin FX — Standing Protocol v6
+# HipMarvin FX — Standing Protocol v6.1
 
-**v6 — Liquidity/Flow Regime upgrade · 2026-08-19**
+**v6.1 — Pair Discovery + Liquidity/Flow architecture · 2026-08-21**
 
-This version preserves Rules 1–22 and adds **Rule 23 — Liquidity/Flow Regime**. It formalizes a methodological distinction established in v6 review: the 20-day range is a **location map**, not a standalone directional signal. Liquidity and price-flow behavior determine whether that location should be traded as mean reversion, transition, or directional continuation.
+This version preserves Rules 1–23 and adds the v6.1 **pair-selection layer** before Rule 23. The methodology now discovers the strongest currency relationship and best pair expression before applying the existing 20D location, liquidity, flow, acceptance/rejection, and execution framework.
 
 ## Canonical hierarchy
 
-**Macro Regime → Weekly Thesis → 20D Structural Location → Liquidity Map → Liquidity/Flow Regime → Displacement + Acceptance/Rejection → Entry.**
+**Macro Regime → Currency Relative Strength → Pair Discovery (Majors + Liquid Crosses) → Best Expression → 20D Location → Liquidity → Flow Regime → Acceptance/Rejection → Premium/Discount Context → Catalyst → Execution.**
 
-The 20-day range answers **where price is**. Liquidity analysis answers **where price is likely reaching**. Flow/acceptance answers **whether that destination is being pursued or rejected**. Macro remains the broader contextual filter.
+Pair discovery expands the opportunity set; it does not weaken Rule 23. Rule 23 remains the execution/validation gate.
 
-Rules 1–22 retain their existing meaning unless Rule 23 explicitly changes the interpretation of the 20-day zone. Rule 20 permits this as deliberate, versioned schema evolution.
+Rules 1–23 retain their existing meaning. Rules 24–28 below are additive v6.1 selection rules.
 
 ---
 
@@ -134,9 +134,72 @@ A DIRECTIONAL label does not create an entry. Entry still requires a defined lev
 
 ---
 
-## REQUIRED WEEKLY TRADE FIELDS IN v6
+## v6.1 PAIR DISCOVERY / BEST EXPRESSION RULES (24–28)
 
-Each Priority List idea now carries:
+### Rule 24 — Currency-relative pair discovery
+
+The research universe includes major USD pairs and liquid G10 crosses. A pair must **never be excluded solely because it is a cross**.
+
+First rank currencies by macro regime and observable relative strength/weakness. Then construct candidate pair expressions from the strongest-vs-weakest relationships.
+
+When major pairs are compressed, range-bound, or provide poor directional expression, actively test liquid crosses for a cleaner expression of the same currency-relative thesis.
+
+A cross remains a candidate, not an automatic trade. It must survive liquidity, structure, flow, catalyst, execution, and risk checks.
+
+### Rule 25 — Best-expression selection
+
+For each material currency thesis, compare available pair expressions rather than defaulting to a major.
+
+The Best Expression is the pair that most cleanly converts the macro/relative-strength thesis into an executable opportunity after considering:
+
+1. Relative-strength differential
+2. Macro alignment
+3. Price structure and 20D location
+4. Liquidity map and target availability
+5. Flow regime
+6. Acceptance/rejection evidence
+7. Catalyst timing
+8. Correlation/concentration
+9. Spread/liquidity/execution quality
+10. Risk/reward
+
+The best expression may be a major or a cross.
+
+### Rule 26 — Premium/discount is contextual
+
+Premium and Discount remain location descriptors under Rule 21. They are not automatic directional filters.
+
+**Never exclude a bullish expression solely because it is in Premium. Never exclude a bearish expression solely because it is in Discount. Never fade a trend merely because price is stretched within the 20D range.**
+
+A Premium Buy or Discount Sell requires explicit continuation justification under Rule 23, especially liquidity acceptance, displacement/follow-through, and a credible next liquidity objective.
+
+### Rule 27 — Pair Discovery Matrix
+
+Before the Trade Priority List, produce a compact matrix comparing material candidate expressions:
+
+| Currency Thesis | Candidate Pair | Major/Cross | Relative Strength | 20D Location | Liquidity | Flow | Catalyst | Expression Rank | Decision |
+|---|---|---|---|---|---|---|---|---:|---|
+| [strong vs weak] | [pair] | [Major/Cross] | [High/Med/Low] | [zone] | [quality/target] | [regime] | [event] | [1..n] | [Select / Watch / Reject] |
+
+**Select** = best expression and eligible for Rule 23 evaluation.
+
+**Watch** = interesting relationship but missing confirmation, catalyst, or execution quality.
+
+**Reject** = actual analytical/execution deficiency. Being a cross is not a rejection reason.
+
+### Rule 28 — Handoff to Rule 23
+
+The discovery handoff is:
+
+**Pair discovered → Best Expression selected → 20D location established → liquidity mapped → flow regime classified → acceptance/rejection assessed → catalyst checked → Rule 23 execution gate applied.**
+
+Rule 23 remains intact and governs whether the selected expression is tradable. v6.1 changes the **selection universe and order of analysis**, not the Rule 23 validation standard.
+
+---
+
+## REQUIRED WEEKLY TRADE FIELDS IN v6.1
+
+Each Priority List idea carries:
 
 - Entry
 - Stop
@@ -149,6 +212,9 @@ Each Priority List idea now carries:
 - Tier
 - Macro Regime
 - Macro Alignment
+- **Candidate Universe:** Major / Liquid Cross
+- **Pair Discovery Thesis:** [strong currency vs weak currency]
+- **Best Expression:** [pair + concise reason]
 - **Liquidity/Flow Regime**
 - **Liquidity State**
 - **Zone/Flow Relationship**
@@ -156,14 +222,10 @@ Each Priority List idea now carries:
 
 ### Reasoning requirement
 
-If a Buy is in Premium or a Sell is in Discount, state the location explicitly, then explain whether the flow regime is **continuation aligned** or whether reversal evidence exists. Do not describe the zone itself as proof of reversal.
+If a Buy is in Premium or a Sell is in Discount, state the location explicitly, then explain whether flow is continuation aligned or whether reversal evidence exists. Do not describe the zone itself as proof of reversal.
 
 ---
 
-## Migration note
+## Core principle
 
-v6 intentionally does not renumber Rules 1–22. Rule 23 is appended as the next cross-phase rule, following the established v3→v4 and v4→v5 evolution pattern. Existing research files remain historical records. New weekly/daily files should use the v6 fields. A parser implementation must treat the v6 fields as additive schema fields and must not reinterpret historical zone flags retroactively.
-
-**Core principle:**
-
-> **The 20-day range establishes the battlefield; liquidity flow determines the direction of engagement.**
+> **Find the strongest currency relationship first; choose the cleanest pair expression second; then let location, liquidity, flow, acceptance/rejection, catalyst, and Rule 23 determine whether the expression is tradable.**
