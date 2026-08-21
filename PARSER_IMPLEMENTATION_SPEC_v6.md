@@ -1,24 +1,25 @@
-# HipMarvinFX Parser Implementation Specification v6
+# HipMarvinFX Parser Implementation Specification v6.1
 
 **Status:** Canonical implementation specification  
-**Version:** 6.0  
-**Date:** 2026-08-19
+**Version:** 6.1  
+**Date:** 2026-08-21
 
 ## 1. Purpose
 
-Define the implementation boundary for the v6 research parser. The parser converts canonical weekly/daily research Markdown into validated normalized data consumed by the publication and website layers.
+Define the implementation boundary for the v6.1 research parser. The parser converts canonical weekly/daily research Markdown into validated normalized data consumed by the publication and website layers.
 
 It is a **normalizer and validator**, not an analyst.
 
 Canonical upstream contracts:
 
 - `STANDING_PROTOCOL_v6.md`
+- `PAIR_DISCOVERY_SELECTION_V6_1.md`
 - `WEEKLY_RESEARCH_TEMPLATE_v4.md`
 - `DAILY_UPDATE_TEMPLATE_v3.md`
 - `POSITION_LEDGER_TEMPLATE_v2.md`
 - `WEBSITE_PARSER_CONTRACT_v6.md`
 - `WEBSITE_PAGE_SCHEMA_v6.md`
-- `PUBLISHING_PIPELINE.md` v1.9
+- `PUBLISHING_PIPELINE.md` v1.9+
 
 ## 2. Processing pipeline
 
@@ -31,9 +32,11 @@ Section extraction
     ↓
 Field normalization
     ↓
-v6 schema validation
+v6.1 schema validation
     ↓
-Business-rule validation
+Pair-discovery validation
+    ↓
+Rule 23 business-rule validation
     ↓
 Normalized JSON
     ↓
@@ -52,13 +55,13 @@ Supported source classes:
 
 The parser must identify the source template/version from explicit metadata where available.
 
-If the document is v5 or lacks v6 fields, it remains parseable. Missing v6 flow fields become `NOT_RECORDED`; they are never inferred from 20D location.
+If the document is v5 or lacks v6/v6.1 fields, it remains parseable. Missing fields become `NOT_RECORDED`; they are never inferred from 20D location.
 
 ## 4. Canonical normalized envelope
 
 ```json
 {
-  "schema_version": "6.0",
+  "schema_version": "6.1",
   "source": {
     "file": "",
     "template": "",
@@ -67,6 +70,7 @@ If the document is v5 or lacks v6 fields, it remains parseable. Missing v6 flow 
     "parsed_at": ""
   },
   "weekly": {},
+  "pair_discovery": [],
   "trades": [],
   "daily_updates": [],
   "ledger": [],
@@ -80,9 +84,40 @@ If the document is v5 or lacks v6 fields, it remains parseable. Missing v6 flow 
 
 `parsed_at` is metadata only and must never influence trading fields.
 
-## 5. Trade normalization
+## 5. Pair discovery normalization
 
-Each Trade Priority List entry must normalize to the fields defined in `WEBSITE_PARSER_CONTRACT_v6.md`.
+Each Pair Discovery Matrix row should normalize to:
+
+- currency_thesis
+- candidate_pair
+- candidate_universe (`MAJOR` / `LIQUID_CROSS`)
+- relative_strength
+- daily_zone
+- liquidity
+- flow_regime
+- catalyst
+- expression_rank
+- decision (`SELECT` / `WATCH` / `REJECT`)
+
+The parser must not reject `LIQUID_CROSS` merely because it is a cross.
+
+If `REJECT` is supplied, preserve the analyst's stated rejection reason where available. A rejection reason of only `"cross"` or equivalent is a validation error for v6.1.
+
+## 6. Best-expression normalization
+
+For each material currency thesis, normalize when supplied:
+
+- preferred_expression
+- alternative_expression
+- why_preferred
+- why_alternative_weaker
+- concentration_note
+
+The parser must preserve the selected expression exactly as written and must not substitute a major pair merely because it contains USD.
+
+## 7. Trade normalization
+
+Each Trade Priority List entry must normalize to:
 
 ### Required
 
@@ -95,6 +130,9 @@ Each Trade Priority List entry must normalize to the fields defined in `WEBSITE_
 - rr
 - timeframe
 - correlation_class
+- candidate_universe
+- pair_discovery_thesis
+- best_expression
 - daily_zone.percent when supplied numerically
 - daily_zone.label
 - tier
@@ -116,7 +154,7 @@ Each Trade Priority List entry must normalize to the fields defined in `WEBSITE_
 
 Unknown fields may be preserved under a non-public `extensions` object but must not alter canonical semantics.
 
-## 6. Controlled normalization
+## 8. Controlled normalization
 
 Normalize:
 
@@ -125,10 +163,27 @@ Normalize:
 - percentage strings to numeric values where unambiguous
 - LONG/SHORT/CONDITIONAL casing
 - canonical flow labels
+- MAJOR / LIQUID_CROSS casing
+- SELECT / WATCH / REJECT casing
 
 Do not normalize away meaning. Preserve original source text in an audit field when a transformation could affect interpretation.
 
-## 7. Flow regime validation
+## 9. Pair-discovery validation
+
+The discovery layer is a **selection layer**, not an execution layer.
+
+Required principles:
+
+1. Start from currency-relative strength/weakness.
+2. Compare majors and liquid crosses.
+3. Do not treat USD inclusion as an automatic advantage.
+4. Do not treat cross status as an automatic disadvantage.
+5. Require an actual analytical/execution reason for rejection.
+6. Correlated pairs must still be recognized as the same underlying currency/liquidity bet where appropriate.
+
+A selected pair must be handed to Rule 23 for flow/execution validation; discovery alone cannot create a trade.
+
+## 10. Flow regime validation
 
 Accepted values:
 
@@ -144,7 +199,7 @@ A `TRANSITION` state must not be presented as a confirmed directional setup.
 
 A `RANGE` state must not be automatically converted into a fade instruction.
 
-## 8. Location/flow rule
+## 11. Location/flow rule
 
 `daily_zone` answers **where price is within the 20D range**.
 
@@ -158,7 +213,7 @@ Therefore:
 - Discount + bullish flow is not rejected merely because of location.
 - Missing flow cannot be inferred from Premium/Discount.
 
-## 9. Acceptance/rejection validation
+## 12. Acceptance/rejection validation
 
 When a source explicitly provides acceptance/rejection evidence, preserve it verbatim in the audit/source field and normalize the canonical state.
 
@@ -172,25 +227,13 @@ Minimum directional evidence should be one or more explicit source observations 
 - breakout hold + failed retracement;
 - equivalent explicit analyst evidence.
 
-## 10. Conditional ideas
+## 13. Conditional ideas
 
 Conditional setups may contain separate long and short triggers. The parser must preserve both branches rather than flattening them into a single direction.
 
-Example:
-
-```json
-{
-  "direction": "CONDITIONAL",
-  "conditions": {
-    "long": {},
-    "short": {}
-  }
-}
-```
-
 No branch may be promoted to active direction unless the source explicitly says the trigger has occurred.
 
-## 11. Validation result
+## 14. Validation result
 
 Errors prevent publication. Warnings permit publication only when the affected field is non-critical and the publication layer can safely represent uncertainty.
 
@@ -198,6 +241,8 @@ Errors prevent publication. Warnings permit publication only when the affected f
 
 - missing stop on an executable trade;
 - invalid flow regime value;
+- invalid candidate universe value;
+- selected cross rejected solely because it is a cross;
 - contradictory canonical fields;
 - malformed required numeric field where the source claims a numeric value;
 - DIRECTIONAL executable setup without supporting flow evidence.
@@ -205,11 +250,11 @@ Errors prevent publication. Warnings permit publication only when the affected f
 ### Warning examples
 
 - optional TP2 missing;
-- historical v5 document missing v6 fields;
+- historical v5 document missing v6/v6.1 fields;
 - non-canonical but recoverable whitespace/casing;
 - optional evidence field absent for a narrative-only observation.
 
-## 12. Publication boundary
+## 15. Publication boundary
 
 The parser outputs research truth. The publication layer determines presentation labels.
 
@@ -217,9 +262,9 @@ The parser must not generate marketing copy, headlines, CTAs, or sales claims.
 
 The website must consume normalized fields rather than reparsing Markdown independently.
 
-## 13. Auditability
+## 16. Auditability
 
-Every normalized trade should retain enough source metadata to locate the originating section/field. Recommended fields:
+Every normalized trade and discovery row should retain enough source metadata to locate the originating section/field. Recommended fields:
 
 ```json
 {
@@ -231,19 +276,22 @@ Every normalized trade should retain enough source metadata to locate the origin
 }
 ```
 
-## 14. Acceptance fixtures
+## 17. Acceptance fixtures
 
-Implementation must pass every fixture in `PARSER_FIXTURE_V6.md` before production use.
+Implementation must pass every fixture in `PARSER_FIXTURE_V6.md` plus v6.1 pair-discovery cases.
 
-Minimum acceptance cases:
+Minimum v6.1 acceptance cases:
 
-1. Premium + DIRECTIONAL + accepted liquidity → continuation presentation.
-2. Premium + RANGE + rejected liquidity → reversal-watch presentation.
-3. TRANSITION + confirmation pending → no directional presentation.
-4. v5 input → flow fields `NOT_RECORDED`, no inference.
-5. Daily RANGE → DIRECTIONAL update → context changes without automatic Ledger status change.
+1. Strong-vs-weak currency relationship selects a liquid cross over a compressed major.
+2. Major remains the Best Expression when the cross has inferior liquidity/execution.
+3. A cross is not rejected solely because it is a cross.
+4. Premium + DIRECTIONAL + accepted liquidity → continuation presentation.
+5. Premium + RANGE + rejected liquidity → reversal-watch presentation.
+6. TRANSITION + confirmation pending → no directional presentation.
+7. v5 input → v6/v6.1 fields `NOT_RECORDED`, no inference.
+8. Daily RANGE → DIRECTIONAL update → context changes without automatic Ledger status change.
 
-## 15. Non-goals
+## 18. Non-goals
 
 The parser does not:
 
@@ -253,18 +301,22 @@ The parser does not:
 - reinterpret historical research;
 - override the Standing Protocol;
 - replace the analyst's reasoning;
-- infer direction from Premium/Discount alone.
+- infer direction from Premium/Discount alone;
+- choose a pair from incomplete evidence on behalf of the analyst.
 
-## 16. Implementation order
+## 19. Implementation order
 
 1. Markdown section parser.
-2. Field normalizers.
-3. v6 schema validator.
-4. Flow/business-rule validator.
-5. Fixture test runner.
-6. Stable JSON output.
-7. Publication derivation adapter.
-8. Website integration.
-9. CI enforcement.
+2. Pair Discovery Matrix extraction.
+3. Best Expression extraction.
+4. Field normalizers.
+5. v6.1 schema validator.
+6. Pair-discovery validator.
+7. Flow/business-rule validator.
+8. Fixture test runner.
+9. Stable JSON output.
+10. Publication derivation adapter.
+11. Website integration.
+12. CI enforcement.
 
-**Definition of done:** all v6 fixtures pass, v5 compatibility is preserved, invalid executable research blocks publication, and the website consumes the normalized contract without duplicating analytical parsing logic.
+**Definition of done:** v6.1 discovery and v6 Rule 23 fixtures pass, v5 compatibility is preserved, invalid executable research blocks publication, and the website consumes the normalized contract without duplicating analytical parsing logic.
