@@ -1,3 +1,6 @@
+﻿> ARCHIVED — Historical v5 only. Current rules: STANDING_PROTOCOL_v7.md
+> PUBLISHING_PIPELINE.md v1.9: Historical v5 research remains governed by v5 rules and must not be retroactively reclassified.
+
 # HipMarvin FX — Standing Protocol v5
 
 Updates v5: adds Rule 22 — the Thesis Invalidation Flag — a Position Ledger
