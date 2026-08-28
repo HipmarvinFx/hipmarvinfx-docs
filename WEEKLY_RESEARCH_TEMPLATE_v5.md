@@ -132,29 +132,29 @@ accommodate them (Rule 20).
 
 **Priority N — Pair Direction — ★★★★★**
 
-- **Entry:** [level / zone]
-- **Stop:** [level]
-- **TP1:** [level]
-- **TP2:** [level]
-- **R:R:** [ratio]
-- **Timeframe:** [chart timeframe used for the idea's general context]
-- **Execution TF (v5):** [1H / 4H / Daily — per Rule 24, the timeframe the
+- Entry: [level / zone]
+- Stop: [level]
+- TP1: [level]
+- TP2: [level]
+- R:R: [ratio]
+- Timeframe: [chart timeframe used for the idea's general context]
+- Execution TF: [1H / 4H / Daily — per Rule 24, the timeframe the
   entry itself is actually confirmed on; never below 1H]
-- **Correlation Class:** [USD-quote group / USD-base group / Proxy-standalone / Other]
-- **Daily Zone:** [X% up the 20D range — label]
-- **Tier:** [1 / 2]
-- **Macro Regime:** [currency regime / currency regime]
-- **Macro Alignment:** [Aligned / Mixed / Contrarian]
-- **HTF Trend (v5):** [Bullish / Bearish / Transition / Conflict]
-- **Trend Alignment (v5):** [With-trend / Countertrend after structural break / Not eligible]
-- **Structural Break (v5):** [None / Confirmed bullish / Confirmed bearish / Not applicable]
-- **QMR Phase (v5):** [Quality / Manipulation / Reaction / Confirmed continuation / Confirmed reversal]
-- **QM/QML Refinement (v5):** [Yes / No / Not applicable]
-- **Liquidity/Flow Regime:** [RANGE / TRANSITION / DIRECTIONAL]
-- **Liquidity State:** [Untaken liquidity / Liquidity swept + rejected / Liquidity swept + accepted / Sequential liquidity consumption / Transition / confirmation pending]
-- **Liquidity Target (v5):** [level or pool the idea is actually targeting — sourced from chart]
-- **Zone/Flow Relationship:** [Mean-reversion aligned / Continuation aligned / Location vs flow conflict — continuation justified / Location vs flow conflict — reversal not yet confirmed / Neutral / insufficient evidence]
-- **Reasoning:** [Use the full v7 sequence below. If Trend Alignment is
+- Correlation Class: [USD-quote group / USD-base group / Proxy-standalone / Other]
+- Daily Zone: [X% up the 20D range — label]
+- Tier: [1 / 2]
+- Macro Regime: [currency regime / currency regime]
+- Macro Alignment: [Aligned / Mixed / Contrarian]
+- HTF Trend: [Bullish / Bearish / Transition / Conflict]
+- Trend Alignment: [With-trend / Countertrend after structural break / Not eligible]
+- Structural Break: [None / Confirmed bullish / Confirmed bearish / Not applicable]
+- QMR Phase: [Quality / Manipulation / Reaction / Confirmed continuation / Confirmed reversal]
+- QM/QML Refinement: [Yes / No / Not applicable]
+- Liquidity/Flow Regime: [RANGE / TRANSITION / DIRECTIONAL]
+- Liquidity State: [Untaken liquidity / Liquidity swept + rejected / Liquidity swept + accepted / Sequential liquidity consumption / Transition / confirmation pending]
+- Liquidity Target: [level or pool the idea is actually targeting — sourced from chart]
+- Zone/Flow Relationship: [Mean-reversion aligned / Continuation aligned / Location vs flow conflict — continuation justified / Location vs flow conflict — reversal not yet confirmed / Neutral / insufficient evidence]
+- Reasoning: [Use the full v7 sequence below. If Trend Alignment is
   "Countertrend after structural break," the Reasoning must cite the
   specific broken HTF level and the follow-through evidence per Rule 26 —
   this is not optional disclosure, it's the eligibility evidence itself.]
@@ -172,22 +172,22 @@ the more convenient reading.
 
 **Priority N — Pair conditional, both sides — ★★★☆☆**
 
-- **Long trigger / TP / Stop:** close above [price] → target [price] → stop [price]
-- **Short trigger / TP / Stop:** close below [price] → target [price] → stop [price]
-- **Timeframe / Execution TF / Correlation Class / Daily Zone / Tier:** [fields]
-- **Macro Regime (long side):** [regimes]
-- **Macro Regime (short side):** [regimes]
-- **Macro Alignment:** [per side]
-- **HTF Trend / Trend Alignment / Structural Break (per side):** [state each
+- Long trigger / TP / Stop: close above [price] → target [price] → stop [price]
+- Short trigger / TP / Stop: close below [price] → target [price] → stop [price]
+- Timeframe / Execution TF / Correlation Class / Daily Zone / Tier: [fields]
+- Macro Regime (long side): [regimes]
+- Macro Regime (short side): [regimes]
+- Macro Alignment: [per side]
+- HTF Trend / Trend Alignment / Structural Break (per side): [state each
   side separately — a conditional idea may have one side eligible
   (with-trend) and the other side gated (countertrend, no confirmed break)]
-- **QMR Phase (per side):** [state]
-- **QM/QML Refinement (per side):** [state]
-- **Liquidity/Flow Regime:** [RANGE / TRANSITION / DIRECTIONAL]
-- **Liquidity State:** [state]
-- **Liquidity Target:** [level/pool]
-- **Zone/Flow Relationship:** [relationship]
-- **Reasoning:** [what confirmation would convert each conditional side into
+- QMR Phase (per side): [state]
+- QM/QML Refinement (per side): [state]
+- Liquidity/Flow Regime: [RANGE / TRANSITION / DIRECTIONAL]
+- Liquidity State: [state]
+- Liquidity Target: [level/pool]
+- Zone/Flow Relationship: [relationship]
+- Reasoning: [what confirmation would convert each conditional side into
   an eligible trade — for the countertrend side, this must include what a
   qualifying structural break would look like]
 
