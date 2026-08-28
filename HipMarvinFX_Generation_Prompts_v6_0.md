@@ -74,6 +74,17 @@ For each scenario include:
 - Invalidation condition
 - Trade implication
 
+**Header format (parser contract):** Every Scenario Matrix header must begin with the exact event name as it appears in the FF calendar, followed by a dash and the branch label. Format:
+
+`## SCENARIO MATRIX — US FOMC Rate Decision`
+
+The event name is the match key — the parser links scenarios to calendar events by token overlap on this text. If two events share a generic term (e.g. two separate CPI releases), the disambiguating word (country/currency) must appear in the main header, not in a trailing parenthetical. Trailing parentheticals are stripped before matching.
+
+- Good: `## SCENARIO MATRIX — UK CPI y/y`
+- Bad: `## SCENARIO MATRIX — CPI y/y (United Kingdom)`
+
+Branch labels ("Hold with hawkish tone", "m/m misses") go inside the branch line itself, not in the section header.
+
 ---
 
 ## 2. DAILY UPDATE PROMPT
