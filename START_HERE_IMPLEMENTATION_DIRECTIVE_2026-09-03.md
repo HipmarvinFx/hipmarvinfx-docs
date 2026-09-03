@@ -1,27 +1,61 @@
-# HipMarvinFX — Definitive Implementation Directive
-## New-Session Team Handover — 3 September 2026
+# HipMarvinFX — Definitive New-Session Implementation Directive
+## Mandatory Starting Point for Every New Development Session
 
-**Status:** CANONICAL NEW-SESSION HANDOVER  
-**Audience:** Developers, AI coding agents, technical collaborators, and reviewers starting a new session  
-**Repository:** `HipmarvinFx/hipmarvinfx-docs`  
-
----
-
-## 1. PURPOSE
-
-This document is the starting directive for any team member or AI agent entering the HipMarvinFX project in a new session.
-
-The objective is to prevent the project from repeatedly reopening settled decisions, treating proposals as completed work, or rebuilding deprecated architecture.
-
-**Do not start by coding. Start by establishing the current repository and application reality.**
-
-This directive is a navigation and implementation-control document. It does not replace the canonical methodology documents listed below.
+**Date:** 3 September 2026  
+**Status:** CANONICAL / MANDATORY NEW-SESSION STARTING POINT  
+**Audience:** Developers, AI coding agents, technical collaborators, and reviewers  
+**Documentation repository:** `HipmarvinFx/hipmarvinfx-docs`  
+**Application repository:** `HipmarvinFx/hipmarvinfx`  
+**Current application commit at handoff:** `a82d8c2`
 
 ---
 
-## 2. MANDATORY READING ORDER
+## 1. THIS IS THE FIRST DOCUMENT TO READ IN EVERY NEW SESSION
 
-Read these documents before making implementation decisions:
+Every new HipMarvinFX development session must begin here.
+
+The purpose is to prevent:
+
+- repeated reconstruction of project history;
+- reopening decisions that have already been superseded;
+- treating documentation as proof of implementation;
+- treating proposed work as completed work;
+- restoring deprecated architecture;
+- allowing AI to invent factual market information;
+- starting implementation before current application reality is established.
+
+**The project is NOT complete.**
+
+The previous session completed the documentation/state handoff. It did **not** complete the v7 application implementation.
+
+Therefore:
+
+> **Handoff complete ≠ project complete.**
+
+---
+
+## 2. MANDATORY FIRST ACTION
+
+Do NOT begin by coding.
+
+First:
+
+1. Read this document completely.
+2. Read the canonical documents listed below.
+3. Inspect the actual application repository.
+4. Confirm the current branch and commit.
+5. Inspect the current implementation, database/schema, tests, and deployment/runtime state where applicable.
+6. Reconcile the documentation against the actual application.
+7. Produce a **CURRENT REALITY vs REQUIRED** matrix.
+8. Only then select the highest-priority verified implementation gap.
+
+The first engineering deliverable is therefore **state verification**, not feature coding.
+
+---
+
+## 3. MANDATORY READING ORDER
+
+Read these before making implementation decisions:
 
 1. `ONBOARDING_START_HERE.md`
 2. `HipMarvinFX_Implementation_Directive.md`
@@ -31,116 +65,150 @@ Read these documents before making implementation decisions:
 6. `SHIFT_HANDOVER_2026-09-01_YahooEvidenceAdapter.md`
 7. `HipMarvinFX_Roadmap_and_Handover_v6.2.md` — historical context only
 
-Then inspect the **actual application repository, database state, deployment state, and current branch/commit** before claiming any implementation item is complete.
+Then inspect the actual application repository at the current commit.
 
-The public `hipmarvinfx-docs` repository is primarily the methodology/contracts/handover/provenance layer. It is not, by itself, proof that the production application implements every documented specification.
+The September 1 shift handover **exists in the repository**. Its later continuation supersedes earlier tentative/open assumptions inside that document where the two differ.
 
 ---
 
-## 3. CURRENT GOVERNING PRINCIPLE
+## 4. SOURCE-OF-TRUTH HIERARCHY
 
-The project is moving toward a deterministic evidence-driven v7 architecture:
+When determining project state, use this hierarchy:
+
+1. **Verified current application/runtime state**
+2. **Latest explicit implementation decision**
+3. **Latest state handover**
+4. **Canonical v7 methodology/specification**
+5. **Older roadmap/history**
+
+Documentation does not prove implementation.
+
+A commit does not by itself prove runtime correctness.
+
+A function existing in source does not by itself prove that the feature works.
+
+If implementation status cannot be verified, classify it as **UNKNOWN** rather than CLOSED.
+
+---
+
+## 5. DEFINITIVE STATUS MODEL
+
+Use exactly these classifications when reconciling state:
+
+- **CLOSED** — implementation/decision is sufficiently verified and no remaining work is required for the defined scope.
+- **OPEN** — known work remains.
+- **PARTIALLY IMPLEMENTED** — some implementation exists, but the defined requirement is not fully proven/complete.
+- **SUPERSEDED** — replaced by a later decision or architecture.
+- **UNKNOWN** — insufficient evidence to classify confidently.
+
+Do not convert UNKNOWN into CLOSED by assumption.
+
+Do not convert a documentation claim into runtime verification.
+
+---
+
+## 6. CURRENT PROJECT PRINCIPLE
+
+HipMarvinFX v7 is being built around a deterministic, evidence-driven architecture:
 
 `External Source → Evidence Adapter → Validation → Evidence Store → Technical/Macro Engine → Evidence Packet → AI/Analyst → Research File → Parser → Publication`
 
-The central rule is:
+The governing anti-fabrication rule is:
 
 > **AI may interpret verified evidence, but AI must never manufacture missing market facts.**
 
-No fabricated price, trend, structural break, liquidity state, QMR phase, QM/QML pattern, entry, stop, target, or R:R may enter the published system.
+No fabricated:
+
+- price;
+- OHLC value;
+- trend;
+- structural break;
+- liquidity state;
+- flow state;
+- QMR phase;
+- QM/QML pattern;
+- entry;
+- stop;
+- target;
+- R:R;
+- macro fact
+
+may become authoritative published data.
 
 ---
 
-## 4. DEFINITIVE STATUS MODEL
+## 7. LOCKED v7 TRADING METHODOLOGY
 
-Use these statuses when discussing project state:
+Do not reopen these rules without an explicit new project decision.
 
-- **CLOSED** — explicitly completed/verified in the documented state record.
-- **OPEN** — explicitly unfinished or identified as the next implementation task.
-- **SUPERSEDED** — replaced by a later decision or architecture.
-- **UNKNOWN** — mentioned or implied but not sufficiently verified. Never convert UNKNOWN into CLOSED by assumption.
+Core hierarchy:
 
-When a document claims something is complete but no implementation/runtime evidence exists, describe it as **documented as closed, runtime verification pending** rather than silently upgrading confidence.
+**Macro Regime → Weekly Thesis → HTF Trend/Structure → 20D Location → Liquidity → QMR → Reaction → QM/QML → Liquidity Target → Risk**
 
----
+Locked principles include:
 
-## 5. CLOSED / LOCKED DECISIONS
-
-### Methodology
-
-- v7 trend-first doctrine is locked.
-- Daily = broad structure/context.
-- 4H = actionable trend/structure.
-- 1H = minimum execution timeframe.
-- No sub-1H execution.
-- Daily/4H conflict means transition/conflict; do not force a directional conclusion.
-- Premium/Discount and 20D location describe location, not direction.
-- Liquidity sweep alone does not prove reversal.
-- QMR means **Quality → Manipulation → Reaction**.
-- QMR continuation is the primary use case.
-- Countertrend requires the defined HTF structural-break gate.
-- QM/QML is an entry refinement, not the bias engine.
-- A cross must not be excluded merely because it is a cross.
-- A trend must not be faded merely because price is in Premium.
-
-### Evidence / data path
-
-The September 1 handover records the following as completed/verified at that point:
-
-- `yahoo-fx` adapter existed and conformed to the market-data provider interface.
-- Yahoo daily OHLC was live-verified.
-- Invalid/in-progress candles with null close were rejected by candle validation.
-- Native Yahoo 4H boundary mismatch was identified.
-- The new approach is to derive the required 4H structure from validated 1H data rather than depend on Yahoo's native 4H bucket boundaries.
-- Gold/silver mapping was corrected to futures symbols (`GC=F` / `SI=F`) and live-verified.
-- Daily/weekly cron provider order was changed to `[yahoo-fx, twelve-data]`.
-- The buggy old `yahoo-finance` provider was removed from that provider list.
-- Daily packet-variable shadowing was fixed.
-- Evidence packet types were correctly re-exported from parser types.
-- TypeScript check was reported clean after those fixes.
-
-These are **documented state claims from the shift handover**. Re-verify against the live application before relying on them for production assertions.
+- trend first;
+- Daily = broad structure/context;
+- 4H = actionable trend/structure;
+- 1H = minimum execution timeframe;
+- no sub-1H execution;
+- Daily/4H conflict = transition/conflict, not forced direction;
+- Premium/Discount is location, not automatic direction;
+- 20D location is location, not automatic direction;
+- liquidity sweep alone does not prove reversal;
+- QMR = Quality → Manipulation → Reaction;
+- QMR continuation is a primary use case;
+- countertrend requires the defined HTF structural-break gate;
+- QM/QML is entry refinement, not the bias engine;
+- never exclude a cross merely because it is a cross;
+- never fade a trend merely because price is in Premium.
 
 ---
 
-## 6. SUPERSEDED ARCHITECTURE / DO NOT RESTORE
+## 8. MARKET-DATA STATE AT HANDOFF
 
-### Do not restore the v6 prompt chain
+The September 1 shift handover recorded these items as completed/verified at that point:
 
-The request to “restore the v6 prompt” is shelved. Do not revive it as a shortcut.
+- `yahoo-fx` adapter existed and conformed to the market-data provider interface;
+- Yahoo daily OHLC was live-verified;
+- invalid/in-progress candles with null close were rejected by candle validation;
+- native Yahoo 4H bucket boundaries did not match the required canonical buckets;
+- the intended approach is to derive canonical 4H structure from validated 1H data;
+- XAU/XAG mappings were corrected to `GC=F` / `SI=F` and live-verified;
+- daily/weekly cron provider order was changed to `[yahoo-fx, twelve-data]`;
+- the buggy old `yahoo-finance` provider was removed from those provider lists;
+- daily packet-variable shadowing was fixed;
+- EvidencePacket/EvidenceItem parser exports were fixed;
+- TypeScript typecheck was reported clean after those fixes.
 
-### Do not make AI the factual data source
-
-AI must not be used to invent or guess current prices or technical state.
-
-### Do not revive the old authored-research persistence path as the core v7 architecture
-
-The current decision separates:
-
-- **Track B:** deterministic engines compute/expose technical data.
-- **Track A:** analyst-authored/parser-imported trade ideas remain the controlled persistence path where applicable.
-
-Track B does not author trade ideas, macro narrative, `trade_ideas`, or `research_cycles` merely to recreate the old workflow.
-
-### Evidence Packet integration correction
-
-The September 1 application inspection corrected an earlier architectural assumption: in the actual application, `buildEvidencePacket()` was not an upstream AI input gate. It was being used as parallel/non-blocking verification around parsing.
-
-Do not assume the documentation diagram represents the current application wiring. Inspect the code before changing the integration boundary.
-
-### Native Yahoo 4H as the canonical bucket source
-
-Do not revert to native Yahoo 4H bars for the required 00/04/08 UTC-style structure buckets when the implementation is using derived 4H from validated 1H data.
+These are **documented historical verification claims**. The next session must verify their current state in the application rather than assuming nothing has changed.
 
 ---
 
-## 7. CURRENT OPEN IMPLEMENTATION QUEUE
+## 9. COT STATE HAS CHANGED
 
-The following is the working queue unless a newer verified handover explicitly closes or supersedes an item.
+Do not use older documentation that describes COT as completely unimplemented without checking the current application.
+
+At the current handoff, application commit `a82d8c2` is reported to contain:
+
+- COT fallback;
+- manual COT ingest endpoint.
+
+Therefore the initial classification is:
+
+> **COT = PARTIALLY IMPLEMENTED / VERIFY CURRENT CODE AND RUNTIME**
+
+The next session must determine whether the COT path is now fully complete, partially complete, or still has integration gaps.
+
+---
+
+## 10. CURRENT OPEN WORK — VERIFY BEFORE CODING
+
+The following are the principal known work areas. They form the working queue, but each must be reconciled against the current application before being declared OPEN or CLOSED.
 
 ### Priority 1 — HTF deterministic structure
 
-Implement and test the v7 HTF chain:
+Verify/implement:
 
 1. Reliable market data.
 2. Daily OHLC.
@@ -154,77 +222,116 @@ Implement and test the v7 HTF chain:
 10. QMR state.
 11. QM/QML refinement.
 
-The first immediate engineering focus after the market-data work is **Step 3: HTF structure engine**.
+The immediate historical engineering focus after market-data stabilization was **HTF structure**.
 
-### Priority 2 — QMR / HTF implementation
+### Priority 2 — Trend alignment and structural-break gate
 
-Implement the canonical QMR/HTF brief deterministically.
+Implement/verify:
 
-The engine must not infer an entry simply because a QMR-looking sequence exists. It must enforce the documented trend, structure, liquidity, reaction, and countertrend gates.
+- Daily ↔ 4H trend alignment;
+- protected HTF swing identification;
+- meaningful structural-break detection;
+- displacement/acceptance requirements;
+- follow-through requirements.
 
-### Priority 3 — Evidence-to-AI-to-parser vertical slice
+Countertrend must not pass without the documented HTF gate.
 
-Prove one complete path with real evidence:
+### Priority 3 — QMR
 
-`real market data → validated evidence → deterministic technical state → evidence packet → constrained AI interpretation → parser validation → eligible publication`
+Implement/verify deterministic:
 
-Required adversarial tests include:
+**Quality → Manipulation → Reaction**
 
-- fabricated price rejected;
-- rejected output produces zero persistence;
-- valid evidence-backed output passes validation and becomes eligible for persistence.
+The engine must distinguish, where applicable:
 
-### Priority 4 — Parser / admin synchronization
+- liquidity sweep;
+- rejection;
+- acceptance;
+- continuation;
+- sequential liquidity consumption;
+- genuine reaction.
 
-Complete the remaining v7 parser work, including the items recorded in the latest implementation directive/handover, notably:
+A sweep alone must not become a reversal signal.
 
-- Zone/Tier/Correlation parser handling in `app/admin/page.tsx`;
-- Week-Close Review parser rewrite;
-- WEEK31 weekly-research field reconciliation;
-- synchronization between parser contracts and actual application schema.
+### Priority 4 — QM/QML
 
-### Priority 5 — Known legacy/open defects
+Implement/verify QM/QML as entry refinement only.
 
-Investigate and close, without silently deleting historical provenance:
+It must not override HTF trend, structural, or countertrend rules.
+
+### Priority 5 — Evidence → AI → Parser → Persistence
+
+Prove a complete real-data vertical slice:
+
+`real market data → validated evidence → deterministic technical state → evidence packet → constrained AI interpretation → parser validation → eligible publication/persistence`
+
+The actual application wiring must be inspected. Do not assume the architecture diagram describes the current code.
+
+### Priority 6 — Adversarial anti-fabrication testing
+
+At minimum prove:
+
+**Fabricated price:** rejected.
+
+**Missing evidence:** cannot be filled by AI invention.
+
+**Valid evidence:** valid evidence-backed output can proceed.
+
+**Rejected output:** produces zero persistence/publication of rejected factual fields.
+
+### Priority 7 — Parser/admin synchronization
+
+Verify/complete where still necessary:
+
+- Zone parser;
+- Tier parser;
+- Correlation parser;
+- Week-Close Review parser;
+- WEEK31 weekly-research reconciliation;
+- parser v7 contract alignment;
+- synchronization between parser and actual application schema.
+
+### Priority 8 — Known legacy/open defects
+
+Investigate each against current code:
 
 - `lookupPairsForCycle()` stub;
 - old `YahooFinanceAdapter` 4H→1H mislabeling;
 - orphaned `exchangerate-host.ts`;
-- `week_start` / `week_end` bug;
+- `week_start` / `week_end` issue;
 - weekly-cycle mislabeling;
 - `research_cycles_week_unique` constraint issue;
-- Position Ledger DB table, if still absent in the application;
+- Position Ledger DB table, if still absent;
 - Gemini/Groq provider issues only if the current architecture still requires them.
 
-### Priority 6 — Macro evidence productionization
+### Priority 9 — Macro evidence productionization
 
-The full macro layer remains unfinished/deferred unless a newer verified state document says otherwise.
+Do not claim full production macro infrastructure without proof for:
 
-Do not claim production completion for:
-
-- COT ingestion;
+- COT;
 - central-bank ingestion;
 - economic-calendar ingestion;
-- inflation-data ingestion;
-- news/RSS ingestion;
-- full Macro Engine;
-- production macro Evidence Store/ledger;
+- inflation data;
+- news/RSS;
+- macro drivers;
+- macro regime engine;
+- production Evidence Store/ledger.
 
-without implementation and runtime evidence.
+The full Macro Engine was intentionally deferred until the evidence-to-AI vertical slice is proven unless a newer explicit decision changes that order.
 
-The existing macro/evidence documents are specifications and architectural commitments unless separately verified as implemented.
+### Priority 10 — Production cutover
 
-### Priority 7 — Production cutover
+v7 is not production-ready merely because components exist.
 
-Do not declare v7 production-ready until the vertical slice has been proven with real data, adversarial validation, zero-persistence-on-rejection, and successful synchronization/publication tests.
+Publication cutover requires successful end-to-end evidence, validation, rejection, persistence, synchronization, and adversarial testing.
 
-The existing v6.1 production path remains protected until the v7 shadow/validation path is demonstrably safe.
+Protect the existing operational path until the v7 path is demonstrably safe.
 
 ---
 
-## 8. REQUIRED FIELD CONTRACT FOR TRADE OUTPUT
+## 11. REQUIRED TRADE/RESEARCH FIELD CONTRACT
 
-Where the application produces a trade/research object, the v7 contract must account for the canonical fields:
+Where the application produces a trade/research object, account for:
 
 - Pair
 - Direction
@@ -247,130 +354,197 @@ Where the application produces a trade/research object, the v7 contract must acc
 - Zone / Flow relationship
 - Reasoning
 
-A field must not be populated with invented values merely to satisfy schema completeness.
+Schema completeness must never be achieved by inventing missing values.
 
-Use explicit unavailable/pending states where the architecture permits them.
+Use explicit unavailable/pending/stale/invalid states where the contract permits them.
 
 ---
 
-## 9. AI BOUNDARY
+## 12. AI BOUNDARY
 
 AI may:
 
 - interpret verified evidence;
 - explain relationships between verified fields;
-- generate constrained narrative;
+- produce constrained narrative;
 - produce analyst-facing reasoning from supplied facts.
 
-AI may not independently create:
+AI may NOT independently create factual current-state values for:
 
-- current prices;
-- OHLC values;
+- price;
+- OHLC;
 - HTF trend;
-- protected swings;
-- structural breaks;
-- liquidity state;
-- flow state;
-- QMR phase;
-- QM/QML pattern;
+- protected swing;
+- structural break;
+- liquidity;
+- flow;
+- QMR;
+- QM/QML;
 - entry;
 - stop;
 - target;
 - R:R;
-- macro facts that are absent from the evidence packet.
+- absent macro facts.
 
-If evidence is unavailable, the correct output is **NOT_AVAILABLE / PENDING / STALE / INVALID**, as appropriate — not a guess.
+If evidence is unavailable, return the appropriate controlled state such as:
+
+**NOT_AVAILABLE / PENDING / STALE / INVALID**
+
+rather than a guess.
 
 ---
 
-## 10. IMPLEMENTATION DISCIPLINE FOR EVERY NEW SESSION
+## 13. SUPERSEDED ARCHITECTURE — DO NOT RESTORE
 
-Before changing code:
+The following are not current implementation directions:
+
+### Shelved: restore the v6 prompt chain
+
+Do not revive the old v6 prompt as a shortcut.
+
+### Shelved: AI as factual market-data source
+
+Do not use AI to invent/guess current prices or technical state.
+
+### Superseded: old authored-research persistence as core v7 architecture
+
+The current decision separates:
+
+- **Track B:** deterministic engines compute/expose technical data;
+- **Track A:** analyst-authored/parser-imported trade ideas remain the controlled persistence path where applicable.
+
+Track B does not recreate the old workflow by authoring trade ideas, macro narrative, `trade_ideas`, or `research_cycles` merely to restore deprecated behavior.
+
+### Corrected: Evidence Packet assumption
+
+The September 1 application inspection found that `buildEvidencePacket()` was not simply an upstream AI gate. In the actual application it was being used as parallel/non-blocking verification around parsing.
+
+Inspect actual code before modifying this boundary.
+
+### Corrected: native Yahoo 4H canonicalization
+
+Do not revert to native Yahoo 4H bars for the required canonical 4H buckets when derived 4H from validated 1H data is the chosen architecture.
+
+---
+
+## 14. PROVENANCE / HISTORY RULE
+
+Do not silently delete or rewrite historical decisions merely because they were superseded.
+
+Preserve history.
+
+When a newer decision supersedes an older one:
+
+- retain the old document;
+- identify the newer controlling decision;
+- do not treat the old instruction as current.
+
+`DEVELOPMENT_DIRECTIVE_AUTOMATED_MACRO_EVIDENCE_V7.md` should currently be treated as a historical/proposal artifact unless a newer explicit decision reactivates it.
+
+---
+
+## 15. IMPLEMENTATION DISCIPLINE
+
+For every new session and every new task:
 
 1. Identify the actual application repository.
-2. Identify current branch and commit.
-3. Inspect current implementation, not just documentation.
-4. Locate the relevant existing function/file before creating a replacement.
-5. Check whether the task is CLOSED, OPEN, SUPERSEDED, or UNKNOWN.
-6. Check the latest handover for changes to earlier assumptions.
-7. Make the smallest architecture-consistent change.
-8. Run typecheck/tests relevant to the change.
-9. Record exact files changed and verification performed.
-10. Commit and push only after verification.
+2. Confirm branch and commit.
+3. Inspect current implementation.
+4. Locate existing files/functions before creating replacements.
+5. Reconcile documentation against code.
+6. Classify the task: CLOSED / OPEN / PARTIALLY IMPLEMENTED / SUPERSEDED / UNKNOWN.
+7. Identify dependencies.
+8. Make the smallest architecture-consistent change.
+9. Run relevant typechecks/tests.
+10. Verify failure/rejection behavior where applicable.
+11. Record exact files changed.
+12. Commit only after verification.
+13. Push only after verification.
+14. Update the appropriate handover/state documentation when project state materially changes.
 
-Never say “already implemented” solely because a specification exists.
+Never claim implementation merely because a specification exists.
 
-Never say “not implemented” solely because an old document says it was not implemented; inspect the latest application state first.
-
----
-
-## 11. PROVENANCE RULE
-
-Historical documents remain valuable evidence of what the team previously decided or attempted.
-
-Do not rewrite history to make the project appear cleaner.
-
-If an old directive has been superseded, leave the historical file intact and state clearly that the newer directive controls current implementation.
-
-In particular, `DEVELOPMENT_DIRECTIVE_AUTOMATED_MACRO_EVIDENCE_V7.md` should be treated as a historical/proposal artifact unless a later decision explicitly reactivates its instructions. Do not silently treat it as the current implementation authority.
+Never claim a feature is absent merely because an old document says it was absent.
 
 ---
 
-## 12. DEFINITION OF DONE
+## 16. DEFINITION OF DONE
 
-A feature is not DONE because:
+A feature is NOT DONE because:
 
-- the Markdown specification exists;
-- a function compiles;
-- an AI response looks plausible;
+- Markdown exists;
+- code compiles;
+- a function exists;
+- a route exists;
+- an AI answer looks plausible;
 - a parser accepts a field;
 - a mock dataset passes;
+- a commit exists;
 - a developer says it works.
 
-For v7 factual/market-data features, DONE requires appropriate evidence that:
+For factual/market-data features, appropriate evidence must demonstrate the relevant chain:
 
 `real source → adapter → validation → deterministic state → constrained interpretation → parser validation → persistence/publication`
 
-works as intended, including rejection behavior for fabricated or invalid evidence.
+including rejection behavior for fabricated, invalid, stale, or missing evidence.
 
 ---
 
-## 13. FIRST ACTION IN A NEW SESSION
+## 17. REQUIRED FIRST DELIVERABLE OF EVERY NEW SESSION
 
-The first message/action should effectively be:
+Before modifying code, produce a concise:
 
-> **“I have read the canonical handover. I will now inspect the actual application repository and current runtime state, compare it against this directive, and report CURRENT REALITY vs REQUIRED before changing code.”**
+# CURRENT REALITY vs REQUIRED v7 MATRIX
 
-Then produce a concise matrix:
+At minimum include:
 
-| Area | Documented Status | Actual Runtime Status | Gap | Next Action |
-|---|---|---|---|---|
-| Market data | CLOSED/documented | verify | — | verify current provider path |
-| HTF structure | OPEN | inspect | likely implementation gap | implement/test |
-| Trend alignment | OPEN | inspect | — | implement/test |
-| Structural break | OPEN | inspect | — | implement/test |
-| QMR | OPEN | inspect | — | implement/test |
-| QM/QML | OPEN | inspect | — | implement/test |
-| Evidence → AI → parser | OPEN | inspect | — | prove vertical slice |
-| Macro ingestion | OPEN/DEFERRED | inspect | — | do not claim complete |
-| Publication cutover | OPEN | inspect | — | gated by adversarial proof |
+| Area | Documented Status | Actual Code Status | Runtime Verified? | Tests | Gap | Next Action |
+|---|---|---|---|---|---|---|
+| Market data | — | — | — | — | — | — |
+| Yahoo FX | — | — | — | — | — | — |
+| TwelveData fallback | — | — | — | — | — | — |
+| XAU/XAG | — | — | — | — | — | — |
+| COT | — | — | — | — | — | — |
+| Evidence ingestion | — | — | — | — | — | — |
+| Evidence validation | — | — | — | — | — | — |
+| Evidence Packet | — | — | — | — | — | — |
+| Daily OHLC | — | — | — | — | — | — |
+| 4H OHLC | — | — | — | — | — | — |
+| 1H OHLC | — | — | — | — | — | — |
+| HTF structure | — | — | — | — | — | — |
+| Trend alignment | — | — | — | — | — | — |
+| Protected swing | — | — | — | — | — | — |
+| Structural break | — | — | — | — | — | — |
+| Liquidity | — | — | — | — | — | — |
+| Flow | — | — | — | — | — | — |
+| QMR | — | — | — | — | — | — |
+| QM/QML | — | — | — | — | — | — |
+| AI boundary | — | — | — | — | — | — |
+| Parser | — | — | — | — | — | — |
+| Persistence | — | — | — | — | — | — |
+| Publication | — | — | — | — | — | — |
+| Macro evidence | — | — | — | — | — | — |
+| Position Ledger | — | — | — | — | — | — |
+| Legacy defects | — | — | — | — | — | — |
 
-Do not proceed on assumptions hidden behind documentation.
+Then identify the **highest-priority verified blocker**.
+
+Only after that should implementation begin.
 
 ---
 
-## 14. FINAL AUTHORITY RULE
+## 18. FINAL CONTINUITY COMMAND
 
-If documents conflict:
+Every new developer/AI session should begin from this exact principle:
 
-1. A newer explicit implementation decision supersedes an older decision.
-2. A verified application/runtime state supersedes an unverified assumption.
-3. The canonical v7 methodology governs trading logic.
-4. The latest state handover governs current implementation reality until contradicted by newer verified evidence.
-5. Unknown remains unknown until verified.
+> **“I am continuing HipMarvinFX, not restarting it. I will read this canonical directive, inspect the actual application repository and current runtime state, reconcile CURRENT REALITY vs REQUIRED, preserve all verified decisions, ignore superseded architecture, and only then implement the highest-priority verified open item.”**
 
-**No developer or AI agent should reopen a superseded architecture without an explicit new decision.**
+The objective is not to make the repository appear complete.
+
+The objective is to make HipMarvinFX:
+
+**deterministic, evidence-backed, anti-fabrication, testable, auditable, and publication-safe.**
 
 ---
 
-**End of canonical new-session implementation directive.**
+**END — CANONICAL NEW-SESSION STARTING DIRECTIVE**
