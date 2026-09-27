@@ -150,6 +150,49 @@ current status — only a fresh check is.
 
 ---
 
+### 4. Buy/Sell badge color bug — CLOSED (not reproducible)
+
+Original claim (`HANDOVER_NOTE_updated.md`, `HipMarvinFX_Roadmap_Rev7_1.md`):
+Buy/Sell badges on `/outlook/weekly/[cycle_id]` render the same color for
+both directions. Original repro location (Trade Priority Tab) was already
+removed by the time this session investigated.
+
+**Every direction-based color implementation found in the current codebase
+is correctly differentiated.** Checked exhaustively across:
+
+- `app/outlook/weekly/[cycle_id]/page.tsx` — `TradeIdeasTab` (line ~184) and
+  the COT positioning table (line ~373): both use case-insensitive matching
+  (`String(r.direction).toLowerCase() === 'buy' || ... === 'long'`) and
+  correctly split emerald (buy/long) vs. rose (sell/short).
+- `app/trades/page.tsx` (line ~163): correctly splits green
+  (`rgba(34,197,94,...)`) vs. red (`rgba(239,68,68,...)`) via
+  `['buy','long'].includes(...)`.
+- `app/live-trades/page.tsx` (line ~274): same correct pattern, green vs.
+  red via `['BUY','LONG'].includes(...)`.
+- `app/reports/[slug]/page.tsx` (line ~1116): correctly splits green
+  (`#4ADE80`) vs. red (`#F87171`) by `idea.direction === 'Sell'`.
+
+No shared `Badge` component conflates direction with an unrelated field —
+`admin/page.tsx`'s `statusBadge`/`badgeFor` key off trade *status*
+(Waiting/Triggered/Win/Loss/Confirmed/Invalidated), not direction.
+`app/page.tsx`'s `ZoneBadge`/`FillBadge` key off zone label and fill
+confidence, not direction. The scenario-status badge on the outlook page
+(`stateStyles[r.state]`) keys off confirmation state
+(near_confirmation/watch/ineligible), not direction — a different feature
+entirely, not a variant of the reported bug.
+
+**Conclusion:** not currently reproducible anywhere in the app. Most likely
+resolved as an incidental side effect of other work on these same files
+(e.g. the `/trades` data-integrity fix), without the fix ever being logged
+against this specific item — the same pattern already seen this session
+with the `tier` column and the Week-End Review parser: a backlog note
+described a real state accurately at the time it was written, and has
+since gone stale as the underlying code moved on. If the symptom
+resurfaces, it needs a fresh screenshot and URL to reopen against — there
+is currently no reproducible case to fix.
+
+---
+
 ## BACKLOG STATE (corrected, evidence-based)
 
 **Closed:**
@@ -157,19 +200,17 @@ current status — only a fresh check is.
 2. Week-End Review parser (including the newly-found + fixed display bug)
    — verified this session
 3. ABC / B-zone validator investigation — verified this session
+4. Buy/Sell badge color bug — verified this session, not reproducible
 
 **Active backlog, carried forward:**
 1. **Pipeline timing verification** — current implementation needs
    measurement before any architectural decision is made on it.
-2. **Buy/Sell badge color bug** — genuine UI issue; stalled because the
-   original repro location (Trade Priority Tab) was removed. Needs a fresh
-   sighting/repro before it can be worked.
-3. **Stage 2 generator** — still a declared implementation item, not
+2. **Stage 2 generator** — still a declared implementation item, not
    superseded by any work done this session.
-4. **Macro engine + ABC B-zone validator/invalidator implementation work**
+3. **Macro engine + ABC B-zone validator/invalidator implementation work**
    — current architectural work identified after the older, now-superseded
    QMR/HTF Steps 3–14 backlog.
-5. **Rule-21 zone-label landmine** — investigation closed (see above);
+4. **Rule-21 zone-label landmine** — investigation closed (see above);
    retained here only as a future implementation warning, not an active bug.
    Do not reopen as implementation work until an actual reader-facing Daily
    Zone requirement exists to wire it into.
