@@ -1,4 +1,4 @@
-# HipMarvinFX — Session Note: Zone-Label Investigation + Backlog State
+﻿# HipMarvinFX — Session Note: Zone-Label Investigation + Backlog State
 
 **Session focus:** verifying open items from `HANDOVER_NOTE_updated.md` against
 real code, one grep/build at a time, rather than trusting prior claims.
@@ -112,48 +112,76 @@ real landmine if someone reaches for the nearest-looking function
 
 ---
 
-## DISPUTED / UNCONFIRMED — flagged before writing into the record
+## RECONCILIATION — resolved after cross-checking against this session's own evidence
 
-The following were proposed for this note's backlog but conflict with, or
-fall outside, what this session actually verified. Left out of the
-closed/open lists above pending confirmation:
+Two items were initially proposed for this note's backlog in a form that
+conflicted with what this session had just verified. Both are now resolved:
 
 - **Week-End Review parser** and **`trade_ideas.tier` schema** were
-  proposed as still-open items. Per this session's own verification above,
-  both are closed. If a different, narrower gap under either name is still
-  actually open, it needs to be named specifically so it can be checked —
-  it isn't the same thing this session tested.
-- **GBPUSD COT visual regression** and **USDCHF COT visual regression** —
-  not discussed or investigated in this session at all. No basis to
-  confirm or deny status; needs its own investigation thread before being
-  carried forward as a known item.
+  initially proposed as still-open. Per this session's direct verification
+  (parser + regression tests + admin wiring + downstream display fix +
+  clean build, for the first; live schema confirmation + real read/write
+  usage in derivation logic, for the second), both are confirmed **CLOSED**
+  and recorded as such above. A later verified build/test result supersedes
+  an earlier backlog listing — the backlog does not get to overrule the
+  evidence just by having been written first.
+
+- **GBPUSD COT visual regression** and **USDCHF COT visual regression**
+  were proposed as open items, then withdrawn on review. The supporting
+  evidence available establishes: EURUSD's COT presentation was verified
+  end-to-end; the seven-pair currency decomposition map includes GBPUSD and
+  USDCHF as entries; the missing-COT-data status handling was patched and
+  type-checked; EURUSD's technical-detail presentation was visually
+  confirmed. None of that constitutes visual verification of GBPUSD or
+  USDCHF specifically — being present in a decomposition map is not the
+  same as having been rendered and checked. Correctly withdrawn rather than
+  carried forward as if verified. (Note: this specific evidence trail — the
+  EURUSD verification, the decomposition map, the missing-status patch —
+  was not independently re-checked within this session's own transcript;
+  it's recorded here per the standing project record, on the same basis
+  every other unverified claim in this note is treated: named explicitly,
+  not silently trusted.)
+
+**Governing principle, worth stating plainly for future sessions:**
+Do not resurrect an old handover item merely because it appears in an
+earlier backlog. A later, independently verified build/test/result
+supersedes it. An item's presence in a prior note is not evidence of its
+current status — only a fresh check is.
 
 ---
 
-## BACKLOG STATE (as verified through this session only)
+## BACKLOG STATE (corrected, evidence-based)
 
-**Closed, verified this session:**
-1. `trade_ideas.tier` schema
+**Closed:**
+1. `trade_ideas.tier` schema — verified this session
 2. Week-End Review parser (including the newly-found + fixed display bug)
-3. ABC / B-zone validator investigation
+   — verified this session
+3. ABC / B-zone validator investigation — verified this session
 
-**Open, not yet touched this session:**
-- Buy/Sell badge color bug (stalled — original repro location removed from
-  the Trade Priority Tab; needs a fresh sighting/repro before it can be
-  worked)
-- Stage 2 generator status (unchecked this session)
-- Pipeline timing / Vercel 60s (unverified since last noted check)
-- Macro engine implementation work (per v7 handover docs — Phase 6, not
-  yet built)
-- Any items from prior sessions not re-verified here (COT pair
-  decomposition, COT missing-data handling, trader-facing language audit,
-  `/trades` dead-table fix, v7 QMR/HTF Steps 3–14 — carried forward from
-  earlier claims, not re-checked in this thread)
+**Active backlog, carried forward:**
+1. **Pipeline timing verification** — current implementation needs
+   measurement before any architectural decision is made on it.
+2. **Buy/Sell badge color bug** — genuine UI issue; stalled because the
+   original repro location (Trade Priority Tab) was removed. Needs a fresh
+   sighting/repro before it can be worked.
+3. **Stage 2 generator** — still a declared implementation item, not
+   superseded by any work done this session.
+4. **Macro engine + ABC B-zone validator/invalidator implementation work**
+   — current architectural work identified after the older, now-superseded
+   QMR/HTF Steps 3–14 backlog.
+5. **Rule-21 zone-label landmine** — investigation closed (see above);
+   retained here only as a future implementation warning, not an active bug.
+   Do not reopen as implementation work until an actual reader-facing Daily
+   Zone requirement exists to wire it into.
 
-**Explicitly deferred, not a bug:**
-- Zone-label scheme reconciliation (`twenty-day-location.ts`/`dealing-range.ts`
-  vs. `types_v6.ts`'s `zoneLabel()`) — do not reopen as implementation work
-  until an actual reader-facing Daily Zone requirement exists to wire it into.
+**Removed from the verified backlog (insufficient evidence to carry forward):**
+- GBPUSD COT visual regression
+- USDCHF COT visual regression
+
+These may be reintroduced later as **deliberate, explicitly-scoped future
+regression coverage** for the other pairs in the seven-pair decomposition
+map — but not as if they were already-known outstanding failures, since no
+verification of that kind has actually been performed on those two pairs.
 
 ---
 
