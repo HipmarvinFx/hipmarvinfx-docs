@@ -1,4 +1,4 @@
-﻿# HipMarvinFX — Session Note: Zone-Label Investigation + Backlog State
+# HipMarvinFX — Session Note: Zone-Label Investigation + Backlog State
 
 **Session focus:** verifying open items from `HANDOVER_NOTE_updated.md` against
 real code, one grep/build at a time, rather than trusting prior claims.
