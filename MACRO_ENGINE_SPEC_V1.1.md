@@ -181,9 +181,9 @@ calculation. No provider selection.
 
 ## I. Approval checklist
 
-- [ ] A3 manual-origin eligibility confirmed
-- [ ] C3 freshness threshold (10 days) approved
-- [ ] C6 COT SUPPORTS rule (both categories agree, per Pipeline v1.8) approved
-- [ ] F1 canonical validator chosen
-- [ ] F6 fallback `reportDate` bug confirmed in `parseReportDate` and fixed; bad rows marked INVALID
-- [ ] F7 daily ledger COT projection fixed or retired
+- [x] A3 manual-origin eligibility confirmed
+- [x] C3 freshness threshold (10 days) approved
+- [x] C6 COT SUPPORTS rule (both categories agree, per Pipeline v1.8) approved
+- [x] F1 canonical validator chosen
+- [x] F6 fallback `reportDate` bug confirmed in `parseReportDate` and fixed; bad rows marked INVALID
+- [x] F7 daily ledger COT projection fixed or retired
