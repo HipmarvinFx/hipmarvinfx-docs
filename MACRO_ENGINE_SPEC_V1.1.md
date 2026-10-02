@@ -94,9 +94,11 @@ thresholds are introduced except where marked.
 - **ACTIVELY_OPPOSES(D):** both Leveraged Funds and Asset Managers have net
   positioning against D **and** both flows moved further against D.
   A net or flow of exactly zero does not count as "against".
-- **SUPPORTS(D):** the *dominant* category's net and flow both run with D.
-  **[PROPOSED]** Dominant = the category with the larger absolute net.
-  Equal absolute net → no dominant category → not SUPPORTS.
+- **SUPPORTS(D):** both Leveraged Funds and Asset Managers have net
+  positioning with D **and** both flows moved further with D.
+  A net or flow of exactly zero does not count as "with".
+  No dominant-category rule: per PUBLISHING_PIPELINE.md v1.8, size-based
+  dominance would make Asset Managers dominant by construction.
 - **MIXED(D):** any other case with complete inputs, including the two
   categories disagreeing. (Disagreement is never force-classified as opposed.)
 - **INSUFFICIENT_DATA:** missing/stale/degraded input.
@@ -181,7 +183,7 @@ calculation. No provider selection.
 
 - [ ] A3 manual-origin eligibility confirmed
 - [ ] C3 freshness threshold (10 days) approved
-- [ ] C6 "dominant category" definition approved
+- [ ] C6 COT SUPPORTS rule (both categories agree, per Pipeline v1.8) approved
 - [ ] F1 canonical validator chosen
 - [ ] F6 fallback `reportDate` bug confirmed in `parseReportDate` and fixed; bad rows marked INVALID
 - [ ] F7 daily ledger COT projection fixed or retired
