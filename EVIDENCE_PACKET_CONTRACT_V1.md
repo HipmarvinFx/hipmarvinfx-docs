@@ -1,8 +1,8 @@
 # HipMarvinFX Evidence Packet Contract v1
 
 **Status:** Canonical v7 foundation contract  
-**Implementation status:** Contract only  
-**Date:** 28 August 2026
+**Implementation status:** Partially implemented and reconciled against the current v7 packet layer.
+**Date:** 22 September 2026
 
 ## 1. Purpose
 
@@ -29,6 +29,23 @@ AI
    ↓
 Parser Firewall
 ```
+
+## Current implementation boundary
+
+The implementation contains two intentionally distinct packet shapes:
+
+1. **EvidencePacket** — the legacy/generic packet shape implemented by `lib/evidence/packet-builder.ts`. It supports FULL and DELTA modes and remains used by existing parser, admin, test, and cron paths.
+2. **CanonicalResearchEvidencePacket** — the canonical v7 research packet implemented by `lib/evidence/research-packet-builder.ts`. It is FULL mode only and is used by the Daily/Weekly research packet path.
+
+The canonical research packet is the authoritative packet shape for the v7 research chain. The legacy `EvidencePacket` remains in place for existing callers and is not being silently converted by this contract reconciliation.
+
+- `EvidencePacket` supports FULL and DELTA modes but does not currently implement the canonical v7 research-packet envelope.
+- `CanonicalResearchEvidencePacket` is FULL mode only and contains the canonical facts, derived, technicalContext, macroContext, candidates, dataHealth, and changeSummary sections.
+- Canonical DELTA mode and `basePacketId` linkage are not currently implemented.
+- The canonical research packet uses a deterministic packet ID derived from its stable packet content.
+- Calendar evidence is explicitly scoped by the active research cycle through `calendarSubject`.
+
+This contract therefore documents the current implementation boundary rather than claiming unsupported DELTA functionality is already production-complete.
 
 ## 3. Packet modes
 
