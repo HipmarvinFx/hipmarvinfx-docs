@@ -1,4 +1,4 @@
-# HipMarvinFX Macro Engine Specification v1.1 (AMENDMENT — DRAFT)
+﻿# HipMarvinFX Macro Engine Specification v1.1 (AMENDMENT — DRAFT)
 
 **Status:** DRAFT for approval. Amends `MACRO_ENGINE_SPEC_V1.md`; does not replace it.
 **Implementation status:** Contract only. First slice = COT Positioning.
@@ -153,7 +153,7 @@ engine inputs:
 | F3 | `cot.ts` stores a new row id every run; duplicates accumulate. | Reuse the row per `(type, source)` or per `reportDate`. |
 | F4 | `mockPriceAdapter` was registered unconditionally at priority 999 and could emit a `VERIFIED` EURUSD price on a double outage. | **Done:** unregistered in `adapters/index.ts` (evidence tests: 106 pass). Optionally guard `registerSourceAdapter` against `mock*` names outside tests. |
 | F5 | `macroRegime.ranking` carries price-derived strength. | See B.2. |
-| F6 | Evidence rows dated 2026-09-21 (a Monday) all come from `cftc-cot-html-fallback`. The Socrata adapter (`cftc-cot`) stored the same report as 2026-09-22 (Tuesday), which is the correct as-of date. The fallback's `reportDate` is one day early. Likely cause (unconfirmed): a local-timezone date parse followed by `toISOString()` in `parseReportDate`. | Read `parseReportDate` in `cftc-cot-html-fallback.ts`, fix with a timezone-safe parse, add a test, and mark the six existing fallback rows INVALID (they were created during 27 Sep testing and the adapter was never live-tested). The C3 weekday check is what exposed this. |
+| F6 | Evidence rows dated 2026-09-21 (a Monday) all come from `cftc-cot-html-fallback`. The Socrata adapter (`cftc-cot`) stored the same report as 2026-09-22 (Tuesday), which is the correct as-of date. The fallback's `reportDate` is one day early. Cause confirmed: `parseReportDate` used `new Date("September 22, 2026")` (local midnight) then `toISOString()`, shifting the date a day early in timezones ahead of UTC. Fixed in app-repo commit `3a69bda` (timezone-safe UTC parse + test); the six bad rows were marked INVALID on 2 Oct 2026. | Read `parseReportDate` in `cftc-cot-html-fallback.ts`, fix with a timezone-safe parse, add a test, and mark the six existing fallback rows INVALID (they were created during 27 Sep testing and the adapter was never live-tested). The C3 weekday check is what exposed this. |
 | F7 | `loadLatestCotEvidence` takes `limit: 1` ordered by `created_at`, so it currently returns the newest fallback row (dated Monday, wrong) instead of the Tuesday-dated Socrata row. The daily ledger's COT section therefore carries the wrong `reportDate`. | Superseded by C2 for the engine; fix or retire the projection in `cot.ts`. |
 
 ## G. Required tests
