@@ -12,6 +12,76 @@ The Source Registry defines how HipMarvinFX identifies, evaluates, and uses exte
 
 No provider named in an implementation plan is automatically an architectural requirement.
 
+
+## Current Approved / Implemented Source Registry
+
+The following sources are confirmed against the current v7 implementation.
+This table describes what is actually wired today; it is not a declaration
+that every source category in the architecture is already implemented.
+
+| Evidence class | Source / adapter | Provider | Authority | Priority | Implementation status |
+|---|---|---|---|---:|---|
+| MARKET_PRICE | `yahoo-fx` | Yahoo Finance | MARKET_DATA_VENDOR | 0 | IMPLEMENTED |
+| MARKET_PRICE | `twelve-data` | Twelve Data API | MARKET_DATA_VENDOR | 1 | IMPLEMENTED / FALLBACK |
+| COT | `cftc-cot` | CFTC Public Reporting Environment (Socrata) | PRIMARY_OFFICIAL | 2 | IMPLEMENTED |
+| COT | `cftc-cot-html-fallback` | CFTC TFF short-form HTML report | PRIMARY_OFFICIAL | 3 | IMPLEMENTED / FALLBACK |
+| ECONOMIC_CALENDAR | `finance-calendar` | FinanceCalendar | SECONDARY_AGGREGATOR | 10 | IMPLEMENTED |
+| CENTRAL_BANK | `fed-rss` | Federal Reserve official RSS | PRIMARY_OFFICIAL | 0 | IMPLEMENTED |
+| CENTRAL_BANK | `ecb-rss` | European Central Bank official RSS | PRIMARY_OFFICIAL | 1 | IMPLEMENTED |
+| CENTRAL_BANK | `boe-rss` | Bank of England official RSS | PRIMARY_OFFICIAL | 2 | IMPLEMENTED |
+| CENTRAL_BANK | `boj-mpm` | Bank of Japan official MPM statement index | PRIMARY_OFFICIAL | 3 | IMPLEMENTED |
+| CENTRAL_BANK | `snb-rss` | Swiss National Bank official RSS | PRIMARY_OFFICIAL | 4 | IMPLEMENTED |
+| TEST_ONLY | `mock` | Internal mock adapter | MANUAL | — | TEST ONLY — NOT A PRODUCTION SOURCE |
+
+### Confirmed source references
+
+- Twelve Data: `https://api.twelvedata.com/time_series`
+- CFTC Socrata TFF: `https://publicreporting.cftc.gov/resource/gpe5-46if.json`
+- CFTC TFF HTML fallback: `https://www.cftc.gov/dea/futures/financial_lf.htm`
+- ECB official press RSS: `https://www.ecb.europa.eu/rss/press.xml`
+- Bank of England official news RSS: `https://www.bankofengland.co.uk/rss/news`
+- Bank of Japan official MPM index: `https://www.boj.or.jp/en/mopo/mpmdeci/state_<year>/index.htm`
+- Swiss National Bank official monetary-policy RSS: `https://www.snb.ch/public/rss/en/mopo`
+- FinanceCalendar source reference is the adapter's `FINANCE_CALENDAR_BASE`; the adapter also exposes `https://www.financecalendar.com` as its attribution source.
+- Yahoo Finance source reference is emitted by the Yahoo adapter and remains provider-specific; this registry does not invent a URL not explicitly exposed by the adapter metadata.
+
+### Source-category implementation boundary
+
+The architecture defines additional source classes that are **not yet general production adapters**:
+
+- `GOVERNMENT_MACRO` / official economic-statistical data: **NOT YET IMPLEMENTED as a general adapter class**.
+- `NEWS`: **NOT YET IMPLEMENTED as a general news adapter**.
+- `GEOPOLITICAL`: **NOT YET IMPLEMENTED as a general adapter**.
+- `MANUAL`: supported as an evidence class by contract, but is not an unrestricted external-provider substitute.
+
+Central-bank RSS feeds are approved only for the `CENTRAL_BANK` evidence class represented by their adapters. Their existence does **not** authorize unrestricted news/RSS ingestion.
+
+### News and RSS restriction
+
+HipMarvinFX must not give the AI unrestricted web/news browsing authority as an evidence mechanism.
+
+Any future news or RSS source must first be:
+
+1. explicitly registered;
+2. assigned a source ID and authority class;
+3. assigned a defined source reference;
+4. normalized through an adapter;
+5. validated and provenance-stamped;
+6. subject to the same freshness, failure, and conflict rules as other evidence.
+
+Unregistered websites, search results, arbitrary URLs, and ad-hoc AI browsing are **not evidence sources**.
+
+### Priority and fallback interpretation
+
+Adapter priority is deterministic and ascending. A lower numeric priority is attempted before a higher numeric priority for the same source type.
+
+Current production fallback relationships include:
+
+- Yahoo Finance → Twelve Data for market-price retrieval.
+- CFTC Socrata → CFTC TFF HTML for COT retrieval.
+
+The internal mock adapter is test-only. It was removed from the production registry on 2 October 2026 (app-repo commit `226b80f`) and must never be treated as a production evidence source.
+
 ## 2. Registry responsibilities
 
 The registry MUST define, for every source adapter:
@@ -205,20 +275,29 @@ last_verified_evidence
 
 Source health MUST be visible to operational diagnostics but MUST NOT be fabricated when monitoring data is unavailable.
 
-## 13. Initial registry scope
+## 13. Implementation Status and Scope
 
-The first vertical slice requires only abstract capabilities for:
+The original registry contract was written before the current central-bank
+adapter layer was implemented. That historical wording is superseded.
 
-```text
-PRICE
-COT
-ECONOMIC_CALENDAR
-```
+The current v7 implementation has production adapters for:
 
-Price may use the existing v6.1 providers during migration. COT and calendar may use deterministic test fixtures before production adapters are selected.
+- market prices;
+- CFTC/COT;
+- economic calendar;
+- five central banks: Fed, ECB, BoE, BoJ, and SNB.
 
-Central-bank, government-macro, news, and geopolitical adapters are later phases and must not delay the first architecture proof.
+The registry therefore treats those sources as implemented evidence paths.
 
+Official government economic/statistical data outside the central-bank layer,
+general news/RSS, and geopolitical sources remain future source categories
+until explicit adapters are implemented and validated. They must not be
+represented as currently available evidence merely because the architecture
+allows for them.
+
+The registry remains provider-agnostic at the EvidenceItem boundary. Adding
+a provider requires an explicit registry/adapter change rather than an AI
+decision to browse or select a source dynamically.
 ## 14. Provider-agnostic AI boundary
 
 The AI layer receives normalized evidence, not provider-specific API responses.
