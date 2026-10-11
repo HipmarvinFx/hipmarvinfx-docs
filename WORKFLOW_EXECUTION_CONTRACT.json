@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "contract_version": "1.0.0",
+  "project": "HipMarvinFX",
+  "purpose": "Standardize weekly research, daily updates, and week-end close; require investigation of existing capabilities before owner-input requests.",
+  "authority": {
+    "supplements": [
+      "STANDING_PROTOCOL_v7.md",
+      "WEEKLY_RESEARCH_TEMPLATE_v5.md",
+      "DAILY_UPDATE_TEMPLATE_v4.md",
+      "WEEKLY_DAILY_WEEK_END_WORKFLOW_DIRECTIVE.md"
+    ],
+    "conflict_rule": "Do not silently override canonical protocol or templates. Report the exact conflict and pause only the conflicting decision."
+  },
+  "default_policy": {
+    "investigate_before_asking_owner": true,
+    "inspect_existing_artifacts_and_context": true,
+    "prefer_read_only_preflight": true,
+    "draft_while_independent_gaps_are_investigated": true,
+    "never_invent_market_evidence": true,
+    "never_claim_enforcement_without_tested_enforcement": true,
+    "owner_input_required_default": false
+  },
+  "evidence_statuses": [
+    "VERIFIED",
+    "PENDING",
+    "STALE",
+    "INVALID",
+    "NOT_AVAILABLE"
+  ],
+  "evidence_classes": [
+    "FACT",
+    "DERIVED",
+    "INTERPRETATION"
+  ],
+  "blocker_classes": [
+    "UNVERIFIED",
+    "VERIFICATION_FAILED",
+    "CAPABILITY_GAP",
+    "EVIDENCE_GAP",
+    "OWNER_DECISION_OR_APPROVAL"
+  ],
+  "workflow_types": {
+    "weekly_research": {
+      "sequence": [
+        "resolve_period_and_scope",
+        "read_canonical_protocol_and_template",
+        "inspect_existing_implementation_and_prior_work",
+        "inspect_previous_attempts_and_persistence_state",
+        "audit_existing_evidence_sources",
+        "retrieve_and_validate_evidence",
+        "build_evidence_inventory",
+        "draft_supported_sections",
+        "mark_gaps_without_fabrication",
+        "validate_template_parser_methodology_and_provenance",
+        "report_readiness_and_next_safe_action"
+      ],
+      "source_checks": {
+        "price": [
+          "instrument_coverage",
+          "timeframe_coverage",
+          "timestamps",
+          "closed_candles",
+          "freshness",
+          "ohlc_validity",
+          "range_anchor"
+        ],
+        "cot": [
+          "latest_report_date",
+          "instrument_coverage",
+          "parse_validity",
+          "provenance",
+          "persistence",
+          "status",
+          "consumer_compatibility"
+        ],
+        "calendar": [
+          "requested_window_coverage",
+          "event_timestamps",
+          "currencies",
+          "impact_fields",
+          "provenance",
+          "duplicates",
+          "source_suitability"
+        ],
+        "macro_and_other": [
+          "source_authority",
+          "effective_time",
+          "retrieval_time",
+          "freshness",
+          "provenance",
+          "status"
+        ]
+      },
+      "manual_input_rule": "Request a chart, screenshot, report, or manual value only after documenting the exact unmet requirement, inspected sources and records, actual result/error, why authorized automation cannot satisfy it, and smallest input that resolves the gap."
+    },
+    "daily_update": {
+      "sequence": [
+        "load_active_weekly_cycle_and_latest_daily_update",
+        "inspect_existing_records_for_same_date_or_event",
+        "retrieve_new_authorized_evidence",
+        "validate_actuals_timestamps_and_provenance",
+        "compare_evidence_with_weekly_thesis_and_scenario_conditions",
+        "update_only_affected_fields",
+        "preserve_history_and_prior_verdicts",
+        "validate_update",
+        "report_changes_and_remaining_gaps"
+      ],
+      "rules": [
+        "A daily update modifies the active weekly cycle; it does not silently create a new weekly outlook.",
+        "Do not infer event actuals, confirmation, invalidation, or outcomes without supporting evidence.",
+        "Re-evaluate structure, liquidity, QMR/QM, eligibility, and risk only when relevant evidence warrants it."
+      ]
+    },
+    "week_end_review": {
+      "sequence": [
+        "resolve_closed_period",
+        "load_weekly_thesis_daily_updates_scenarios_ideas_events_and_outcome_evidence",
+        "reconcile_scheduled_events_with_sourced_actuals_and_market_response",
+        "evaluate_predefined_scenario_and_idea_conditions",
+        "use_current_canonical_week_close_parser_and_template",
+        "mark_missing_prior_review_unavailable",
+        "carry_forward_only_supported_lessons_and_conditions",
+        "validate_period_references_and_required_fields",
+        "inspect_persistence_state_before_authorized_write"
+      ],
+      "rules": [
+        "Do not use retired parsing logic when a newer parser is canonical.",
+        "Do not fabricate a prior-week review, outcome, lesson, or carry-forward."
+      ]
+    }
+  },
+  "input_request_gate": {
+    "required_before_owner_request": [
+      "exact_requirement_unmet",
+      "existing_sources_adapters_records_artifacts_and_tools_checked",
+      "actual_results_or_errors",
+      "reason_existing_system_cannot_satisfy_requirement",
+      "smallest_owner_input_needed",
+      "work_that_can_continue_without_input"
+    ],
+    "if_any_item_missing": "Do not send the request yet. Continue investigation or state the specific access/tool limitation.",
+    "allowed_owner_requests": [
+      "genuinely missing product requirement or preference",
+      "explicit permission or approval",
+      "credential or access only the owner can provide",
+      "evidence proven unavailable from authorized sources and required by the governing specification"
+    ]
+  },
+  "persistence_safety": {
+    "default_mode": "READ_ONLY_PREFLIGHT",
+    "require_authorization_for": [
+      "production_ingestion",
+      "database_write",
+      "import",
+      "cleanup_or_delete",
+      "publication",
+      "deployment"
+    ],
+    "before_retry": [
+      "inspect_records_from_previous_attempt",
+      "identify_insert_update_upsert_delete_operations",
+      "verify_actual_uniqueness_and_idempotency_rules",
+      "determine_partial_write_and_transaction_behavior",
+      "propose_recovery_plan_if_partial_state_exists"
+    ],
+    "prohibitions": [
+      "blind_retry_after_uncertain_write",
+      "assume_duplicate_protection_without_route_or_schema_evidence",
+      "claim_rollback_without_transaction_or_state_evidence",
+      "manual_cleanup_before_record_level_assessment"
+    ]
+  },
+  "completion_report_required": [
+    "deliverable_and_period",
+    "sources_adapters_and_code_paths_inspected",
+    "evidence_retrieved_and_validation_results",
+    "changes_and_artifacts_produced",
+    "tests_and_checks_with_results",
+    "unverified_items_and_exact_blockers",
+    "persistence_state_and_approval_status",
+    "owner_input_required",
+    "next_safe_action"
+  ],
+  "readiness_rules": {
+    "implementation_exists_is_not_success": true,
+    "adapter_called_is_not_retrieval_success": true,
+    "retrieval_success_is_not_persistence_success": true,
+    "persistence_success_is_not_validation_success": true,
+    "isolated_test_pass_is_not_end_to_end_readiness": true,
+    "report_only_checks_actually_run": true
+  }
+}
