@@ -1,0 +1,344 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/HipmarvinFx/hipmarvinfx-docs/blob/main/WORKFLOW_EXECUTION_REPORT.schema.json",
+  "title": "HipMarvinFX Workflow Execution Report",
+  "type": "object",
+  "required": [
+    "workflow_type",
+    "period",
+    "preflight",
+    "evidence_checks",
+    "blockers",
+    "persistence",
+    "validation",
+    "owner_input_required",
+    "next_safe_action"
+  ],
+  "properties": {
+    "workflow_type": {
+      "enum": [
+        "weekly_research",
+        "daily_update",
+        "week_end_review"
+      ]
+    },
+    "period": {
+      "type": "object",
+      "required": [
+        "start_date",
+        "end_date",
+        "timezone"
+      ],
+      "properties": {
+        "start_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "timezone": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cycle_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "template_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "preflight": {
+      "type": "object",
+      "required": [
+        "protocol_and_template_read",
+        "prior_state_checked",
+        "sources_and_code_inspected",
+        "mode"
+      ],
+      "properties": {
+        "protocol_and_template_read": {
+          "type": "boolean"
+        },
+        "prior_state_checked": {
+          "type": "boolean"
+        },
+        "sources_and_code_inspected": {
+          "type": "boolean"
+        },
+        "mode": {
+          "enum": [
+            "READ_ONLY_PREFLIGHT",
+            "AUTHORIZED_WRITE",
+            "DRY_RUN"
+          ]
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "source",
+          "requirement",
+          "status",
+          "result"
+        ],
+        "properties": {
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "requirement": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "VERIFIED",
+              "PENDING",
+              "STALE",
+              "INVALID",
+              "NOT_AVAILABLE"
+            ]
+          },
+          "result": {
+            "type": "string"
+          },
+          "checked_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "instrument_or_scope": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "artifact_or_record_reference": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "classification",
+          "requirement",
+          "evidence",
+          "next_action"
+        ],
+        "properties": {
+          "classification": {
+            "enum": [
+              "UNVERIFIED",
+              "VERIFICATION_FAILED",
+              "CAPABILITY_GAP",
+              "EVIDENCE_GAP",
+              "OWNER_DECISION_OR_APPROVAL"
+            ]
+          },
+          "requirement": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1
+          },
+          "owner_input_needed": {
+            "type": "boolean"
+          },
+          "smallest_input_needed": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "work_that_can_continue": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "next_action": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "persistence": {
+      "type": "object",
+      "required": [
+        "mode",
+        "prior_attempt_checked",
+        "writes_performed",
+        "approval_status"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "READ_ONLY_PREFLIGHT",
+            "AUTHORIZED_WRITE",
+            "DRY_RUN"
+          ]
+        },
+        "prior_attempt_checked": {
+          "type": "boolean"
+        },
+        "writes_performed": {
+          "type": "boolean"
+        },
+        "records_or_operations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "approval_status": {
+          "enum": [
+            "NOT_REQUIRED",
+            "NOT_GRANTED",
+            "GRANTED"
+          ]
+        },
+        "partial_write_risk": {
+          "enum": [
+            "UNKNOWN",
+            "NONE_IDENTIFIED",
+            "PRESENT"
+          ]
+        },
+        "recovery_plan": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "validation": {
+      "type": "object",
+      "required": [
+        "template",
+        "parser",
+        "methodology",
+        "provenance",
+        "tests_run"
+      ],
+      "properties": {
+        "template": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "NOT_RUN",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "parser": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "NOT_RUN",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "methodology": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "NOT_RUN",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "provenance": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "NOT_RUN",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "tests_run": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "result"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "result": {
+                "enum": [
+                  "PASS",
+                  "FAIL",
+                  "NOT_RUN"
+                ]
+              },
+              "details": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "readiness_claim": {
+          "enum": [
+            "READY",
+            "NOT_READY",
+            "PARTIAL",
+            "NOT_ASSESSED"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "owner_input_required": {
+      "type": "boolean"
+    },
+    "next_safe_action": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}
