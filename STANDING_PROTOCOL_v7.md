@@ -34,7 +34,7 @@ The 20D range remains a location map. Liquidity identifies the likely destinatio
 
 **Rule 6 — Daily Game Plan is forward-only.** It does not resolve or verdict completed events.
 
-**Rule 7 — Carryover is noted, not resolved, here.** Resolution belongs in the Position Ledger.
+**Rule 7 — Carryover is noted, not resolved, here.** Resolution is recorded in trade_ideas status and the Daily Update (v7.1).
 
 ## DAILY UPDATE RULES (8–13)
 
@@ -52,7 +52,7 @@ The 20D range remains a location map. Liquidity identifies the likely destinatio
 
 ## WEEK-END REVIEW RULES (14–16)
 
-**Rule 14 — Re-read before writing.** Re-read the full week and Position Ledger.
+**Rule 14 — Re-read before writing.** Re-read the full week and the open trade_ideas (v7.1).
 
 **Rule 15 — Don't average away a messy week.** State repeated losses plainly.
 
