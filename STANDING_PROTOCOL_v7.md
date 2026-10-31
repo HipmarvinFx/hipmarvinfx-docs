@@ -2,6 +2,8 @@
 
 **v7 — Higher-Timeframe Trend + QMR/QM execution upgrade · 2026-08-23**
 
+**v7.1 — Ledger authority amendment · 2026-10-31.** Owner decision: Rules 17, 18, 19 and 22 now point at trade_ideas and trade_results; the Position Ledger is a derived, non-authoritative view (Rule 20: deliberate, versioned change).
+
 v7 preserves the v6 Liquidity/Flow Regime framework and adds a higher-timeframe execution doctrine built around **QMR (Quality → Manipulation → Reaction)** with **QM/QML as an execution refinement**, not a standalone reversal pattern.
 
 ## v7 governing principle
@@ -32,7 +34,7 @@ The 20D range remains a location map. Liquidity identifies the likely destinatio
 
 **Rule 6 — Daily Game Plan is forward-only.** It does not resolve or verdict completed events.
 
-**Rule 7 — Carryover is noted, not resolved, here.** Resolution belongs in the Position Ledger.
+**Rule 7 — Carryover is noted, not resolved, here.** Resolution is recorded in trade_ideas status and the Daily Update (v7.1).
 
 ## DAILY UPDATE RULES (8–13)
 
@@ -50,7 +52,7 @@ The 20D range remains a location map. Liquidity identifies the likely destinatio
 
 ## WEEK-END REVIEW RULES (14–16)
 
-**Rule 14 — Re-read before writing.** Re-read the full week and Position Ledger.
+**Rule 14 — Re-read before writing.** Re-read the full week and the open trade_ideas (v7.1).
 
 **Rule 15 — Don't average away a messy week.** State repeated losses plainly.
 
@@ -58,11 +60,11 @@ The 20D range remains a location map. Liquidity identifies the likely destinatio
 
 ## POSITION LEDGER RULES (17–19)
 
-**Rule 17 — New row timing.** Add the row when the idea is published; stop is present at the same time.
+**Rule 17 — New record timing (v7.1).** When an idea is published, its trade_ideas row is created with a stop present (Rule 4). No separate ledger row is required.
 
-**Rule 18 — Same-pair opposite-direction flag.** Note simultaneous opposing rows.
+**Rule 18 — Same-pair opposite-direction flag (v7.1).** Opposing open ideas on the same pair are flagged in the Carryover section and the next Daily Update, on the day it happens.
 
-**Rule 19 — Single source of truth.** The Ledger is the authoritative record of what is open.
+**Rule 19 — Authoritative record (v7.1).** trade_ideas (status, stop, targets) plus trade_results (outcome) is the authoritative record of what is open and resolved. Ledger views, markdown or table, are derived and never override it.
 
 ## CROSS-PHASE RULES
 
@@ -80,7 +82,7 @@ The 20D zone is **location only**. Premium does not automatically mean sell. Dis
 
 ### Rule 22 — Thesis invalidation flag
 
-If new research materially contradicts the analytical basis for an OPEN position, record the contradiction in Notes with a pointer to the research. It does not by itself change Status, stop, or close the position.
+If new research materially contradicts the analytical basis for an OPEN position, record the contradiction in the Daily Update or Week-End Review text, citing the trade id and the research. It does not by itself change Status, stop, or close the position.
 
 ### Rule 23 — Liquidity/Flow Regime
 
