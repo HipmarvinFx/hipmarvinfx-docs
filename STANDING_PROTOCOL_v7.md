@@ -72,6 +72,8 @@ The 20D range remains a location map. Liquidity identifies the likely destinatio
 
 ### Rule 21 — 20D Zone / Structural Location
 
+> **Exception in force - Amendment 003 (effective Week 45, owner decision 2026-11-02):** the Daily Zone field on a Trade Priority List idea is recorded at the live price, because the write gate compares it to the live zone. The zone at the entry price, computed with the formula below, is stated in Reasoning. See `V7_AMENDMENT_003_DAILY_ZONE_LIVE_PRICE.md`. The formula and bands below are unchanged.
+
 Calculate the most recent 20-trading-day High/Low backward from the most recent Friday.
 
 `zone % = (entry − 20D Low) / (20D High − 20D Low) × 100`
