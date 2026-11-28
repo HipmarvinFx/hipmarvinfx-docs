@@ -11,6 +11,7 @@ Read this with the current Standing Protocol. Standing Protocol rule text is not
 
 ## Not in force
 - `V8_AMENDMENT_001` (ABC primary, QMR diagnostic): DRAFT v0.8, NOT APPROVED. Its proposed guard (READY is not executable without ABC reaction confirmation and validated armed levels) must not gate whether an idea is published.
+- `V7_AMENDMENT_007` (C is the rejection from the nearest FVG, IFVG or order block): DRAFT, NOT APPROVED. It takes effect only after owner approval and after the engine change that implements it merges.
 
 ## Current documents (repo root on 20261123)
 - CLARIFICATION_approved_status_comp_access.md
